@@ -40,7 +40,7 @@ ATHLETE_PALETTE = ["#10b981", "#3b82f6", "#f97316", "#a855f7"]
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def parse_time(t) -> float:
-    """HH:MM:SS to seconds. Returns NaN for zeros / invalid / DNF."""
+    """HH:MM:SS -> seconds. Returns NaN for zeros / invalid / DNF."""
     s = str(t).strip() if not pd.isna(t) else ""
     if s in ("", "00:0:0", "0:0:0", "nan"):
         return np.nan
@@ -58,7 +58,7 @@ def parse_time(t) -> float:
 
 
 def hms(seconds) -> str:
-    """seconds to H:MM:SS"""
+    """seconds -> H:MM:SS"""
     if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
@@ -69,7 +69,7 @@ def hms(seconds) -> str:
 
 
 def hm(seconds) -> str:
-    """seconds to H:MM"""
+    """seconds -> H:MM"""
     if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
@@ -79,7 +79,7 @@ def hm(seconds) -> str:
 
 
 def pace_per_km(seconds, km) -> str:
-    """seconds for a leg to MM:SS/km pace string"""
+    """seconds for a leg -> MM:SS/km pace string"""
     if pd.isna(seconds) or km == 0:
         return "N/A"
     pace = seconds / km
