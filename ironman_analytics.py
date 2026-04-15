@@ -40,7 +40,7 @@ ATHLETE_PALETTE = ["#10b981", "#3b82f6", "#f97316", "#a855f7"]
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def parse_time(t) -> float:
-    """HH:MM:SS → seconds. Returns NaN for zeros / invalid / DNF."""
+    """HH:MM:SS to seconds. Returns NaN for zeros / invalid / DNF."""
     s = str(t).strip() if not pd.isna(t) else ""
     if s in ("", "00:0:0", "0:0:0", "nan"):
         return np.nan
