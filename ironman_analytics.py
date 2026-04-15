@@ -40,7 +40,7 @@ ATHLETE_PALETTE = ["#10b981", "#3b82f6", "#f97316", "#a855f7"]
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def parse_time(t) -> float:
-    """HH:MM:SS -> seconds. Returns NaN for zeros / invalid / DNF."""
+"""HH:MM:SS to seconds. Returns NaN for zeros / invalid / DNF."""
     s = str(t).strip() if not pd.isna(t) else ""
     if s in ("", "00:0:0", "0:0:0", "nan"):
         return np.nan
@@ -58,8 +58,8 @@ def parse_time(t) -> float:
 
 
 def hms(seconds) -> str:
-    """seconds -> H:MM:SS"""
-    if pd.isna(seconds):
+"""seconds to H:MM:SS"""
+  if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
     h = seconds // 3600
@@ -69,8 +69,8 @@ def hms(seconds) -> str:
 
 
 def hm(seconds) -> str:
-    """seconds -> H:MM"""
-    if pd.isna(seconds):
+"""seconds to H:MM"""
+if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
     h = seconds // 3600
@@ -79,8 +79,8 @@ def hm(seconds) -> str:
 
 
 def pace_per_km(seconds, km) -> str:
-    """seconds for a leg -> MM:SS/km pace string"""
-    if pd.isna(seconds) or km == 0:
+"""seconds for a leg to MM:SS/km pace string"""
+if pd.isna(seconds) or km == 0:
         return "N/A"
     pace = seconds / km
     m = int(pace // 60)
@@ -96,7 +96,7 @@ def speed_kmh(seconds, km) -> str:
 
 def percentile_rank(value, series) -> float:
 """Percentile of 'value' within 'series' (lower time to higher percentile)."""
-  valid = series.dropna()
+valid = series.dropna()
     if len(valid) == 0:
         return 50.0
     return round(float((valid > value).sum() / len(valid) * 100), 1)
