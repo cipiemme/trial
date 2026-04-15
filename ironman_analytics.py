@@ -58,7 +58,7 @@ def parse_time(t) -> float:
 
 
 def hms(seconds) -> str:
-    """seconds → H:MM:SS"""
+    """seconds to H:MM:SS"""
     if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
@@ -69,7 +69,7 @@ def hms(seconds) -> str:
 
 
 def hm(seconds) -> str:
-    """seconds → H:MM"""
+    """seconds to H:MM"""
     if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
@@ -79,7 +79,7 @@ def hm(seconds) -> str:
 
 
 def pace_per_km(seconds, km) -> str:
-    """seconds for a leg → MM:SS/km pace string"""
+    """seconds for a leg to MM:SS/km pace string"""
     if pd.isna(seconds) or km == 0:
         return "N/A"
     pace = seconds / km
@@ -95,7 +95,7 @@ def speed_kmh(seconds, km) -> str:
 
 
 def percentile_rank(value, series) -> float:
-    """Percentile of 'value' within 'series' (lower time → higher percentile)."""
+    """Percentile of 'value' within 'series' (lower time to higher percentile)."""
     valid = series.dropna()
     if len(valid) == 0:
         return 50.0
@@ -589,7 +589,7 @@ with tab3:
     st.header("Pacing Strategy Analyzer")
     st.caption(
         "Visualise bike-vs-run pacing trade-offs. "
-        "Overbiker: fast bike → slow run. Underrunner: fast run relative to bike."
+        "Overbiker: fast bike to slow run. Underrunner: fast run relative to bike."
     )
 
     pa_df = df.dropna(subset=["Bike_sec", "Run_sec"]).copy()
