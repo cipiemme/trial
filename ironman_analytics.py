@@ -95,8 +95,8 @@ def speed_kmh(seconds, km) -> str:
 
 
 def percentile_rank(value, series) -> float:
-    """Percentile of 'value' within 'series' (lower time to higher percentile)."""
-    valid = series.dropna()
+"""Percentile of 'value' within 'series' (lower time to higher percentile)."""
+  valid = series.dropna()
     if len(valid) == 0:
         return 50.0
     return round(float((valid > value).sum() / len(valid) * 100), 1)
