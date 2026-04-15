@@ -35,7 +35,7 @@ st.set_page_config(
 # Folder that contains the CSV files. Change if needed.
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
-YEARS = list(range(2003, 2008))          # 2003 – 2007
+YEARS = list(range(2003, 2026))          # 2003 – 2007
 DISCIPLINE_COLORS = {
     "Swim":  "#38bdf8",   # sky blue
     "T1":    "#a78bfa",   # violet
@@ -130,7 +130,7 @@ def load_data() -> pd.DataFrame:
 
     if not frames:
         st.error(
-            "No CSV files found. Place IM2003_F.csv … IM2007_M.csv "
+            "No CSV files found. Place IM2003_F.csv … IM2026_M.csv "
             f"in: {DATA_DIR}"
         )
         st.stop()
@@ -209,7 +209,7 @@ with st.sidebar:
         placeholder="All age groups",
     )
     st.markdown("---")
-    st.caption("Ironman World Championship • 2003 – 2007")
+    st.caption("Ironman World Championship • 2003 – 2025")
 
 # Apply global filters
 def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
