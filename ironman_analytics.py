@@ -7,13 +7,6 @@ Five modules mirroring the React web app:
   4. Predictive Time Model
   5. Race Strategy Builder
 
-Usage:
-    streamlit run ironman_analytics.py
-
-Place the CSV files (IM2003_F.csv … IM2026_M.csv) in the same directory
-as this script, or update DATA_DIR below to point at their location.
-"""
-
 import os
 import math
 import numpy as np
@@ -32,16 +25,15 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Folder that contains the CSV files. Change if needed.
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 YEARS = list(range(2003, 2026))          # 2003 – 2025
 DISCIPLINE_COLORS = {
-    "Swim":  "#38bdf880",   # sky blue
-    "T1":    "#a78bfa80",   # violet
-    "Bike":  "#34d39980",   # emerald
-    "T2":    "#fb923c80",   # orange
-    "Run":   "#f8717180",   # red
+    "Swim":  "#38bdf8",   # sky blue
+    "T1":    "#a78bfa",   # violet
+    "Bike":  "#34d399",   # emerald
+    "T2":    "#fb923c",   # orange
+    "Run":   "#f87171",   # red
 }
 ATHLETE_PALETTE = ["#10b981", "#3b82f6", "#f97316", "#a855f7"]
 
