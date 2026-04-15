@@ -10,7 +10,7 @@ Five modules mirroring the React web app:
 Usage:
     streamlit run ironman_analytics.py
 
-Place the CSV files (IM2003_F.csv … IM2007_M.csv) in the same directory
+Place the CSV files (IM2003_F.csv … IM2026_M.csv) in the same directory
 as this script, or update DATA_DIR below to point at their location.
 """
 
@@ -1133,6 +1133,6 @@ with tab5:
 # ─── Footer ───────────────────────────────────────────────────────────────────
 st.markdown("---")
 st.caption(
-    "Ironman Race Analytics · Data: Ironman World Championship 2003–2007 · "
+    "Ironman Race Analytics · Data: Ironman World Championship 2003–2025 · "
     "Built with Streamlit & Plotly"
 )
