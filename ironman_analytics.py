@@ -1128,3 +1128,4 @@ st.caption(
     "Ironman Race Analytics · Data: Ironman World Championship 2003–2025 · "
     "Built with Streamlit & Plotly"
 )
+"""
