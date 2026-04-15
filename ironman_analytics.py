@@ -298,7 +298,7 @@ with tab1:
             xaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
             yaxis=dict(showticklabels=False, showgrid=False),
         )
-        st.plotly_chart(fig_split, use_container_width=True)
+        st.plotly_chart(fig_split, width="stretch")
 
         st.markdown("---")
 
@@ -326,7 +326,7 @@ with tab1:
                 xaxis=dict(gridcolor="#374151"),
                 yaxis=dict(title="Athletes", gridcolor="#374151"),
             )
-            st.plotly_chart(fig_hist, use_container_width=True)
+            st.plotly_chart(fig_hist, width="stretch")
 
         # ── Age Group Benchmarks ─────────────────────────────────────────────
         with col_bench:
@@ -372,7 +372,7 @@ with tab1:
                 yaxis=dict(gridcolor="#374151"),
                 legend=dict(orientation="h", y=1.05),
             )
-            st.plotly_chart(fig_ag, use_container_width=True)
+            st.plotly_chart(fig_ag, width="stretch")
 
         st.markdown("---")
 
@@ -412,7 +412,7 @@ with tab1:
                 yaxis=dict(title="Hours (avg)", gridcolor="#374151"),
                 legend=dict(orientation="h", y=1.05),
             )
-            st.plotly_chart(fig_trend, use_container_width=True)
+            st.plotly_chart(fig_trend, width="stretch")
 
         with col_trend_r:
             st.markdown("#### Field Size")
@@ -494,16 +494,23 @@ with tab2:
                 score_discipline(row["T1_sec"],   "T1_sec"),
                 score_discipline(row["T2_sec"],   "T2_sec"),
             ]
-            fig_radar.add_trace(go.Scatterpolar(
-                r=scores + [scores[0]],
-                theta=radar_cats + [radar_cats[0]],
-                fill="toself",
-                name=row["Name"],
-                line_color=ATHLETE_PALETTE[i % len(ATHLETE_PALETTE)],
-                fillcolor=ATHLETE_PALETTE[i % len(ATHLETE_PALETTE)].replace(")", ",0.15)").replace("rgb", "rgba") if "rgb" in ATHLETE_PALETTE[i] else ATHLETE_PALETTE[i % len(ATHLETE_PALETTE)] + "26",
-                opacity=0.85,
-            ))
+            # Prendiamo il colore base dell'atleta
+        base_color = ATHLETE_PALETTE[i % len(ATHLETE_PALETTE)]
+        
+        # Convertiamo l'esadecimale (es. #10b981) in formato rgba(R, G, B, 0.15)
+        h = base_color.lstrip('#')
+        r, g, b = tuple(int(h[j:j+2], 16) for j in (0, 2, 4))
+        fill_rgba = f"rgba({r}, {g}, {b}, 0.15)"
 
+        fig_radar.add_trace(go.Scatterpolar(
+            r=scores + [scores[0]],
+            theta=radar_cats + [radar_cats[0]],
+            fill="toself",
+            name=row["Name"],
+            line_color=base_color,
+            fillcolor=fill_rgba,
+            opacity=0.85,
+        ))
         fig_radar.update_layout(
             polar=dict(
                 radialaxis=dict(range=[0, 100], showticklabels=True, gridcolor="#374151"),
@@ -553,10 +560,10 @@ with tab2:
         col_r, col_b = st.columns(2)
         with col_r:
             st.subheader("Performance Radar")
-            st.plotly_chart(fig_radar, use_container_width=True)
+            st.plotly_chart(fig_radar, width="stretch")
         with col_b:
             st.subheader("Split Breakdown")
-            st.plotly_chart(fig_bar, use_container_width=True)
+            st.plotly_chart(fig_bar, width="stretch")
 
         # ── Detail table ────────────────────────────────────────────────────
         st.subheader("Split Details")
@@ -577,7 +584,7 @@ with tab2:
             })
         st.dataframe(
             pd.DataFrame(detail_rows),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -695,7 +702,7 @@ with tab3:
                 legend=dict(orientation="h", y=1.08),
                 height=500,
             )
-            st.plotly_chart(fig_sc, use_container_width=True)
+            st.plotly_chart(fig_sc, width="stretch")
 
         # ── Swim-to-Bike-to-Run pacing funnel ─────────────────────────────
         st.subheader("Leg-Time Correlation: Does a fast swim lead to a faster finish?")
@@ -729,7 +736,7 @@ with tab3:
             xaxis=dict(gridcolor="#374151"),
             yaxis=dict(gridcolor="#374151"),
         )
-        st.plotly_chart(fig_corr, use_container_width=True)
+        st.plotly_chart(fig_corr, width="stretch")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -857,7 +864,7 @@ with tab4:
                     legend=dict(orientation="h", y=1.05),
                     margin=dict(l=10, r=10, t=10, b=10),
                 )
-                st.plotly_chart(fig_comp, use_container_width=True)
+                st.plotly_chart(fig_comp, width="stretch")
 
             # ── Finish time distribution with marker ───────────────────
             if not ref.empty:
@@ -887,7 +894,7 @@ with tab4:
                     yaxis=dict(title="Athletes", gridcolor="#374151"),
                     margin=dict(l=10, r=10, t=10, b=10),
                 )
-                st.plotly_chart(fig_dist, use_container_width=True)
+                st.plotly_chart(fig_dist, width="stretch")
 
             # ── Per-discipline percentiles ─────────────────────────────
             st.markdown("#### Discipline Percentiles")
@@ -1031,7 +1038,7 @@ with tab5:
                         "Percentile":   f"Top {100 - percentile_rank(run_target, ref_sb['Run_sec']):.0f}%",
                     },
                 ])
-                st.dataframe(strategy_df, use_container_width=True, hide_index=True)
+                st.dataframe(strategy_df, width="stretch", hide_index=True)
 
                 # ── Feasibility ───────────────────────────────────────────
                 st.markdown("#### Feasibility Analysis")
@@ -1095,7 +1102,7 @@ with tab5:
                     legend=dict(orientation="h", y=1.08),
                     margin=dict(l=10, r=10, t=10, b=10),
                 )
-                st.plotly_chart(fig_plan, use_container_width=True)
+                st.plotly_chart(fig_plan, width="stretch")
 
                 # ── Coaching insights ──────────────────────────────────────
                 st.markdown("#### Coaching Insights")
