@@ -7,6 +7,13 @@ Five modules mirroring the React web app:
   4. Predictive Time Model
   5. Race Strategy Builder
 
+Usage:
+    streamlit run ironman_analytics.py
+
+Place the CSV files (IM2003_F.csv … IM2026_M.csv) in the same directory
+as this script, or update DATA_DIR below to point at their location.
+"""
+
 import os
 import math
 import numpy as np
@@ -25,6 +32,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Folder that contains the CSV files. Change if needed.
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 YEARS = list(range(2003, 2026))          # 2003 – 2025
@@ -40,7 +48,7 @@ ATHLETE_PALETTE = ["#10b981", "#3b82f6", "#f97316", "#a855f7"]
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def parse_time(t) -> float:
-"""HH:MM:SS to seconds. Returns NaN for zeros / invalid / DNF."""
+    """HH:MM:SS → seconds. Returns NaN for zeros / invalid / DNF."""
     s = str(t).strip() if not pd.isna(t) else ""
     if s in ("", "00:0:0", "0:0:0", "nan"):
         return np.nan
@@ -58,8 +66,8 @@ def parse_time(t) -> float:
 
 
 def hms(seconds) -> str:
-"""seconds to H:MM:SS"""
-  if pd.isna(seconds):
+    """seconds → H:MM:SS"""
+    if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
     h = seconds // 3600
@@ -69,8 +77,8 @@ def hms(seconds) -> str:
 
 
 def hm(seconds) -> str:
-"""seconds to H:MM"""
-if pd.isna(seconds):
+    """seconds → H:MM"""
+    if pd.isna(seconds):
         return "N/A"
     seconds = int(round(seconds))
     h = seconds // 3600
@@ -79,8 +87,8 @@ if pd.isna(seconds):
 
 
 def pace_per_km(seconds, km) -> str:
-"""seconds for a leg to MM:SS/km pace string"""
-if pd.isna(seconds) or km == 0:
+    """seconds for a leg → MM:SS/km pace string"""
+    if pd.isna(seconds) or km == 0:
         return "N/A"
     pace = seconds / km
     m = int(pace // 60)
@@ -95,8 +103,8 @@ def speed_kmh(seconds, km) -> str:
 
 
 def percentile_rank(value, series) -> float:
-"""Percentile of 'value' within 'series' (lower time to higher percentile)."""
-valid = series.dropna()
+    """Percentile of 'value' within 'series' (lower time → higher percentile)."""
+    valid = series.dropna()
     if len(valid) == 0:
         return 50.0
     return round(float((valid > value).sum() / len(valid) * 100), 1)
@@ -589,7 +597,7 @@ with tab3:
     st.header("Pacing Strategy Analyzer")
     st.caption(
         "Visualise bike-vs-run pacing trade-offs. "
-        "Overbiker: fast bike to slow run. Underrunner: fast run relative to bike."
+        "Overbiker: fast bike → slow run. Underrunner: fast run relative to bike."
     )
 
     pa_df = df.dropna(subset=["Bike_sec", "Run_sec"]).copy()
@@ -1128,4 +1136,3 @@ st.caption(
     "Ironman Race Analytics · Data: Ironman World Championship 2003–2025 · "
     "Built with Streamlit & Plotly"
 )
-"""
