@@ -37,11 +37,11 @@ DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 YEARS = list(range(2003, 2026))          # 2003 – 2025
 DISCIPLINE_COLORS = {
-    "Swim":  "#38bdf8",   # sky blue
-    "T1":    "#a78bfa",   # violet
-    "Bike":  "#34d399",   # emerald
-    "T2":    "#fb923c",   # orange
-    "Run":   "#f87171",   # red
+    "Swim":  "#38bdf880",   # sky blue
+    "T1":    "#a78bfa80",   # violet
+    "Bike":  "#34d39980",   # emerald
+    "T2":    "#fb923c80",   # orange
+    "Run":   "#f8717180",   # red
 }
 ATHLETE_PALETTE = ["#10b981", "#3b82f6", "#f97316", "#a855f7"]
 
