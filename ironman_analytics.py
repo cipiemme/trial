@@ -33,7 +33,7 @@ st.set_page_config(
 )
 
 # Folder that contains the CSV files. Change if needed.
-DATA_DIR = os.path.dirname(os.path.abspath(trial))
+DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 YEARS = list(range(2003, 2026))          # 2003 – 2025
 DISCIPLINE_COLORS = {
